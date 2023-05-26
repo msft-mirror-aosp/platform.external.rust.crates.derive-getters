@@ -60,7 +60,7 @@ fn get_action_from(attributes: &[Attribute]) -> Result<Option<Action>> {
     for attr in attributes {
         if attr.style != AttrStyle::Outer { continue; }
         
-        if attr.path.is_ident("getter") {
+        if attr.path().is_ident("getter") {
             current = Some(attr.parse_args::<Action>()?);
         }
     }
