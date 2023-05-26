@@ -82,7 +82,7 @@ fn dissolve_rename_from(attributes: &[Attribute]) -> Result<Option<Ident>> {
     for attr in attributes {
         if attr.style != AttrStyle::Outer { continue; }
 
-        if attr.path.is_ident("dissolve") {
+        if attr.path().is_ident("dissolve") {
             let rename = attr.parse_args::<Rename>()?;
             current = Some(rename.name);
         }
@@ -112,7 +112,7 @@ impl<'a> NamedStruct<'a> {
             });
 
         let type_tuple = TypeTuple {
-            paren_token: Paren { span: Span::call_site() },
+            paren_token: Default::default(),
             elems: types,
         };
 

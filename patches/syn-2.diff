@@ -1,0 +1,35 @@
+diff --git a/src/dissolve.rs b/src/dissolve.rs
+index 69feb0f..d63ffa0 100644
+--- a/src/dissolve.rs
++++ b/src/dissolve.rs
+@@ -82,7 +82,7 @@ fn dissolve_rename_from(attributes: &[Attribute]) -> Result<Option<Ident>> {
+     for attr in attributes {
+         if attr.style != AttrStyle::Outer { continue; }
+ 
+-        if attr.path.is_ident("dissolve") {
++        if attr.path().is_ident("dissolve") {
+             let rename = attr.parse_args::<Rename>()?;
+             current = Some(rename.name);
+         }
+@@ -112,7 +112,7 @@ impl<'a> NamedStruct<'a> {
+             });
+ 
+         let type_tuple = TypeTuple {
+-            paren_token: Paren { span: Span::call_site() },
++            paren_token: Default::default(),
+             elems: types,
+         };
+ 
+diff --git a/src/getters.rs b/src/getters.rs
+index 211b646..b37c953 100644
+--- a/src/getters.rs
++++ b/src/getters.rs
+@@ -60,7 +60,7 @@ fn get_action_from(attributes: &[Attribute]) -> Result<Option<Action>> {
+     for attr in attributes {
+         if attr.style != AttrStyle::Outer { continue; }
+         
+-        if attr.path.is_ident("getter") {
++        if attr.path().is_ident("getter") {
+             current = Some(attr.parse_args::<Action>()?);
+         }
+     }
